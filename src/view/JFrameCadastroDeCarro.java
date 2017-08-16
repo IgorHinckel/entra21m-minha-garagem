@@ -629,8 +629,11 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
 
         CarroDAO dao = new CarroDAO();
         if (!txtCodigo.getText().equals("")) {
+            meuCarro.setId(Integer.parseInt(txtCodigo.getText()));
             int codigo = dao.alterar(meuCarro);
             if (codigo != Utilitarios.NAO_FOI_POSSIVEL_ALTERAR) {
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!");
+            } else {
                 JOptionPane.showMessageDialog(null, "Não foi possível alterar");
             }
         } else {
