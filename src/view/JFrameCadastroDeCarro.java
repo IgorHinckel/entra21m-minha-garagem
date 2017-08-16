@@ -7,6 +7,7 @@ package view;
 
 import com.sun.jmx.snmp.BerDecoder;
 import dao.CarroDAO;
+import database.Utilitarios;
 import java.sql.Date;
 import javax.swing.JOptionPane;
 import model.Carro;
@@ -45,7 +46,6 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
         lblFabricante = new javax.swing.JLabel();
         boxFabricante = new javax.swing.JComboBox();
         lbPlaca = new javax.swing.JLabel();
-        txtPlaca = new javax.swing.JTextField();
         lblChassi = new javax.swing.JLabel();
         txtChassi = new javax.swing.JTextField();
         lblRenavan = new javax.swing.JLabel();
@@ -78,20 +78,23 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
         jSpinnerAnoFabricacao = new javax.swing.JSpinner();
         jSpinnerAnoLancamento = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtPlaca = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MINHA GARAGEM - CADASTRO DE CARROS");
         setBackground(new java.awt.Color(204, 204, 204));
 
-        lblNome.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblNome.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblNome.setText("Nome");
 
-        lblCor.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblCor.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblCor.setText("Cor");
 
         txtNome.setBackground(new java.awt.Color(240, 240, 240));
         txtNome.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtNome.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        txtNome.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomeActionPerformed(evt);
@@ -100,36 +103,42 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
 
         txtCor.setBackground(new java.awt.Color(255, 255, 255));
         txtCor.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtCor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtCor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorActionPerformed(evt);
             }
         });
 
+        btnSalvar.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         btnSalvar.setText("Salvar");
+        btnSalvar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
             }
         });
 
+        btnCancelar.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarActionPerformed(evt);
             }
         });
 
+        txtCodigo.setEditable(false);
         txtCodigo.setBackground(new java.awt.Color(255, 255, 255));
         txtCodigo.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtCodigo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(153, 153, 153), 1, true));
+        txtCodigo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoActionPerformed(evt);
             }
         });
 
-        lblFabricante.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblFabricante.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblFabricante.setText("Fabricante");
 
         boxFabricante.setBackground(new java.awt.Color(255, 255, 255));
@@ -142,83 +151,93 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
             }
         });
 
-        lbPlaca.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lbPlaca.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lbPlaca.setText("Placa");
 
-        txtPlaca.setBackground(new java.awt.Color(255, 255, 255));
-        txtPlaca.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtPlaca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPlacaActionPerformed(evt);
-            }
-        });
-
-        lblChassi.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblChassi.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblChassi.setText("Chassi");
 
         txtChassi.setBackground(new java.awt.Color(255, 255, 255));
         txtChassi.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtChassi.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtChassi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtChassiActionPerformed(evt);
             }
         });
 
-        lblRenavan.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblRenavan.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblRenavan.setText("Renavam");
 
         txtRenavam.setBackground(new java.awt.Color(255, 255, 255));
         txtRenavam.setToolTipText("");
+        txtRenavam.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtRenavam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRenavamActionPerformed(evt);
             }
         });
 
+        lblQtdBatidas.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblQtdBatidas.setText("Quantidade de Batidas");
 
+        txtQtdBatidas.setBackground(new java.awt.Color(255, 255, 255));
+        txtQtdBatidas.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtQtdBatidas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtQtdBatidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQtdBatidasActionPerformed(evt);
             }
         });
 
+        lblQtdPortas.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblQtdPortas.setText("Quantidade de Portas");
 
+        lblAnoFabricacao.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblAnoFabricacao.setText("Ano de Fabricação");
 
+        lblAnoLancamento.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblAnoLancamento.setText("Ano de Lançamento");
 
+        lblTipoPneu.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblTipoPneu.setText("Tipo de Pneu");
 
+        txtTipoPneu.setBackground(new java.awt.Color(255, 255, 255));
+        txtTipoPneu.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtTipoPneu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtTipoPneu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTipoPneuActionPerformed(evt);
             }
         });
 
-        lblQuilometragem.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblQuilometragem.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblQuilometragem.setText("Km");
 
         txtQuilometragem.setBackground(new java.awt.Color(255, 255, 255));
+        txtQuilometragem.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtQuilometragem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtQuilometragemActionPerformed(evt);
             }
         });
 
-        lblPotencia.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblPotencia.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblPotencia.setText("Potencia");
 
         txtPotencia.setBackground(new java.awt.Color(255, 255, 255));
+        txtPotencia.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtPotencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPotenciaActionPerformed(evt);
             }
         });
 
+        lblDataCompra.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblDataCompra.setText("Data da Compra");
 
+        jFormattedTextFieldDataCompra.setBackground(new java.awt.Color(255, 255, 255));
+        jFormattedTextFieldDataCompra.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         try {
             jFormattedTextFieldDataCompra.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
@@ -230,16 +249,17 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
             }
         });
 
+        lblDescricao.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblDescricao.setText("Descrição/ Observações");
 
         textAreaDescricao.setColumns(20);
         textAreaDescricao.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         textAreaDescricao.setLineWrap(true);
         textAreaDescricao.setRows(5);
-        textAreaDescricao.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 3));
+        textAreaDescricao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jScrollPane1.setViewportView(textAreaDescricao);
 
-        lblEstaFuncional.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblEstaFuncional.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblEstaFuncional.setText("Esta Funcional");
         lblEstaFuncional.setAutoscrolls(true);
 
@@ -251,6 +271,7 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
             }
         });
 
+        jRadioButtonPermitidaCirculacaoNao.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jRadioButtonPermitidaCirculacaoNao.setText("Não");
         jRadioButtonPermitidaCirculacaoNao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,9 +280,10 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
         });
 
         lblPermitidaCirculacao.setBackground(new java.awt.Color(255, 255, 255));
-        lblPermitidaCirculacao.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        lblPermitidaCirculacao.setFont(new java.awt.Font("Comic Sans MS", 2, 14)); // NOI18N
         lblPermitidaCirculacao.setText("Permitida Circulação");
 
+        jRadioButtonPermitidaCirculacaoSim.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jRadioButtonPermitidaCirculacaoSim.setText("Sim");
 
         jRadioButtonEstaFuncionalNao.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
@@ -273,6 +295,7 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
         });
 
         buttonGroupEstaFuncional.add(radio2);
+        radio2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         radio2.setText("2");
         radio2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,6 +304,7 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
         });
 
         buttonGroupEstaFuncional.add(radio4);
+        radio4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         radio4.setText("4");
         radio4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,13 +315,23 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
         lblImageIcon.setBackground(new java.awt.Color(204, 204, 204));
         lblImageIcon.setOpaque(true);
 
+        jSpinnerAnoFabricacao.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jSpinnerAnoFabricacao.setModel(new javax.swing.SpinnerListModel(new String[] {"1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028"}));
         jSpinnerAnoFabricacao.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jSpinnerAnoLancamento.setModel(new javax.swing.SpinnerNumberModel(1880, 1880, 2020, 1));
+        jSpinnerAnoLancamento.setModel(new javax.swing.SpinnerListModel(new String[] {"1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028"}));
         jSpinnerAnoLancamento.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 2, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         jLabel1.setText("Codigo");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/carro-tunado.jpg"))); // NOI18N
+
+        try {
+            txtPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -309,10 +343,62 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(6, 6, 6))
+                                        .addComponent(lblQtdBatidas)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtQtdBatidas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblRenavan)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(13, 13, 13)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(168, 168, 168)
+                                        .addComponent(jRadioButtonFuncionalSim)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jRadioButtonEstaFuncionalNao)
+                                        .addGap(71, 71, 71)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lblImageIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jRadioButtonPermitidaCirculacaoSim)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jRadioButtonPermitidaCirculacaoNao))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblAnoLancamento)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jSpinnerAnoLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(lblDataCompra)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jFormattedTextFieldDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(247, 247, 247)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(radio2)
+                                        .addGap(27, 27, 27)
+                                        .addComponent(radio4)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblQtdPortas)
+                                        .addGap(38, 38, 38)
+                                        .addComponent(lblEstaFuncional)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblPermitidaCirculacao))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(boxFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -326,96 +412,46 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
                                                 .addGap(54, 54, 54)))
                                         .addGap(83, 83, 83)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbPlaca)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(lblEstaFuncional)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(lblCor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(38, 38, 38)
-                                                        .addComponent(lblQuilometragem)))
+                                                .addComponent(lblTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addComponent(txtQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGap(34, 34, 34)
-                                                        .addComponent(lblPotencia)
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addComponent(txtPotencia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addComponent(lblPermitidaCirculacao))))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                .addComponent(txtTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(lblCor, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtCor, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(38, 38, 38)
+                                                .addComponent(lblQuilometragem)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(34, 34, 34)
+                                                .addComponent(lblPotencia)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtPotencia, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(lbPlaca)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(169, 169, 169)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(boxFabricante, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(70, 70, 70)
-                                .addComponent(txtPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblQtdBatidas)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtQtdBatidas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblQtdPortas)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(radio2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(radio4))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtChassi, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblRenavan)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(94, 94, 94)
-                                        .addComponent(jRadioButtonFuncionalSim)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButtonEstaFuncionalNao)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblImageIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jRadioButtonPermitidaCirculacaoSim)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jRadioButtonPermitidaCirculacaoNao)
-                                                .addGap(0, 0, Short.MAX_VALUE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblAnoLancamento)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jSpinnerAnoLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(lblTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                         .addGap(10, 10, 10))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblAnoFabricacao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSpinnerAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblDataCompra)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jFormattedTextFieldDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblAnoFabricacao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSpinnerAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,7 +489,8 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblEstaFuncional)
-                            .addComponent(lblPermitidaCirculacao))
+                            .addComponent(lblPermitidaCirculacao)
+                            .addComponent(lblQtdPortas))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -465,54 +502,53 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(7, 7, 7)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblRenavan)
-                                    .addComponent(txtRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtQtdBatidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(7, 7, 7)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(lblRenavan)
+                                            .addComponent(txtRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(radio2)
+                                        .addComponent(radio4)))
+                                .addGap(21, 21, 21)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtQtdBatidas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblTipoPneu)
+                                        .addComponent(txtTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(lblQtdBatidas, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jRadioButtonFuncionalSim)
                                 .addComponent(jRadioButtonEstaFuncionalNao)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblQtdPortas)
-                            .addComponent(radio2)
-                            .addComponent(radio4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblAnoFabricacao)
-                            .addComponent(jSpinnerAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSpinnerAnoFabricacao, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblAnoLancamento)
-                            .addComponent(jSpinnerAnoLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSpinnerAnoLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblDataCompra)
-                            .addComponent(jFormattedTextFieldDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTipoPneu)
-                            .addComponent(txtTipoPneu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addComponent(lblDescricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jFormattedTextFieldDataCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(btnSalvar)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnCancelar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDescricao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1))
+                        .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void boxFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxFabricanteActionPerformed
         // TODO add your handling code here:
@@ -563,40 +599,49 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-       Carro meuCarro = new Carro();
-       meuCarro.setFabricante(boxFabricante.getSelectedItem().toString());
-       meuCarro.setNome(txtNome.getText());
-       meuCarro.setPlaca(txtPlaca.getText());
-       meuCarro.setQuilometragem(Float.parseFloat(txtQuilometragem.getText()));
-       meuCarro.setCor(txtCor.getText());
-       meuCarro.setChassi(txtChassi.getText());
-       meuCarro.setPotencia(Float.parseFloat(txtPotencia.getText()));
-       meuCarro.setRenavam(Integer.parseInt(txtRenavam.getText()));
-       meuCarro.setEstaFuncional(jRadioButtonFuncionalSim.isSelected());
-       meuCarro.setQtdBatidas(Byte.parseByte(txtQtdBatidas.getText()));
-       
-       int qtdPorta = radio2.isSelected()? 2 : 4;
-       meuCarro.setQtdPortas((byte)qtdPorta);
-       
-       meuCarro.setPermitidaCirculacao(jRadioButtonPermitidaCirculacaoSim.isSelected());
-       meuCarro.setAnoFabricacao(Short.parseShort(jSpinnerAnoFabricacao.getValue().toString()));
-       meuCarro.setAnoLancamento(Short.parseShort(jSpinnerAnoLancamento.getValue().toString()));
-       
-       String dataCompra = jFormattedTextFieldDataCompra.getText();
-       int ano = Integer.parseInt(dataCompra.substring(6,10));
-       int mes = Integer.parseInt(dataCompra.substring(3,5));
-       int dia = Integer.parseInt(dataCompra.substring(0,2));
-       meuCarro.setDataCompra(new Date(ano,mes,dia));
-       
-       meuCarro.setTipoPneu(Short.parseShort(txtTipoPneu.getText()));
-       meuCarro.setDescricao(textAreaDescricao.getText());
-       
-       CarroDAO dao = new CarroDAO();
-       int codigo = dao.inserir(meuCarro);
-       JOptionPane.showMessageDialog(null, "Carro inserido com Sucesso!");
-       dispose();
-       
-       
+        Carro meuCarro = new Carro();
+        meuCarro.setFabricante(boxFabricante.getSelectedItem().toString());
+        meuCarro.setNome(txtNome.getText());
+        meuCarro.setPlaca(txtPlaca.getText());
+        meuCarro.setQuilometragem(Float.parseFloat(txtQuilometragem.getText()));
+        meuCarro.setCor(txtCor.getText());
+        meuCarro.setChassi(txtChassi.getText());
+        meuCarro.setPotencia(Float.parseFloat(txtPotencia.getText()));
+        meuCarro.setRenavam(Integer.parseInt(txtRenavam.getText()));
+        meuCarro.setEstaFuncional(jRadioButtonFuncionalSim.isSelected());
+        meuCarro.setQtdBatidas(Byte.parseByte(txtQtdBatidas.getText()));
+
+        int qtdPorta = radio2.isSelected() ? 2 : 4;
+        meuCarro.setQtdPortas((byte) qtdPorta);
+
+        meuCarro.setPermitidaCirculacao(jRadioButtonPermitidaCirculacaoSim.isSelected());
+        meuCarro.setAnoFabricacao(Short.parseShort(jSpinnerAnoFabricacao.getValue().toString()));
+        meuCarro.setAnoLancamento(Short.parseShort(jSpinnerAnoLancamento.getValue().toString()));
+
+        String dataCompra = jFormattedTextFieldDataCompra.getText();
+        int ano = Integer.parseInt(dataCompra.substring(6, 10));
+        int mes = Integer.parseInt(dataCompra.substring(3, 5));
+        int dia = Integer.parseInt(dataCompra.substring(0, 2));
+        meuCarro.setDataCompra(new Date(ano, mes, dia));
+
+        meuCarro.setTipoPneu(Short.parseShort(txtTipoPneu.getText()));
+        meuCarro.setDescricao(textAreaDescricao.getText());
+
+        CarroDAO dao = new CarroDAO();
+        if (!txtCodigo.getText().equals("")) {
+            int codigo = dao.alterar(meuCarro);
+            if (codigo != Utilitarios.NAO_FOI_POSSIVEL_ALTERAR) {
+                JOptionPane.showMessageDialog(null, "Não foi possível alterar");
+            }
+        } else {
+            int codigo = dao.inserir(meuCarro);
+            if (codigo != Utilitarios.NAO_FOI_POSSIVEL_INSERIR) {
+                JOptionPane.showMessageDialog(null, "Carro inserido com Sucesso!");
+                txtCodigo.setText(String.valueOf(codigo));
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possível inserir");
+            }
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void radio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio2ActionPerformed
@@ -607,10 +652,6 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonFuncionalSimActionPerformed
 
-    private void txtPlacaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPlacaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPlacaActionPerformed
-
     private void txtQuilometragemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuilometragemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtQuilometragemActionPerformed
@@ -618,6 +659,10 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
     private void jRadioButtonEstaFuncionalNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEstaFuncionalNaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonEstaFuncionalNaoActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -661,6 +706,7 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroupEstaFuncional;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataCompra;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButtonEstaFuncionalNao;
     private javax.swing.JRadioButton jRadioButtonFuncionalSim;
     private javax.swing.JRadioButton jRadioButtonPermitidaCirculacaoNao;
@@ -694,7 +740,7 @@ public class JFrameCadastroDeCarro extends javax.swing.JFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCor;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtPlaca;
+    private javax.swing.JFormattedTextField txtPlaca;
     private javax.swing.JTextField txtPotencia;
     private javax.swing.JTextField txtQtdBatidas;
     private javax.swing.JTextField txtQuilometragem;
