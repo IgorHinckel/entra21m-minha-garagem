@@ -29,3 +29,14 @@ CREATE TABLE IF NOT EXISTS carros (
     renavam INT,
     descricao TEXT
 );
+
+DROP TABLE IF EXISTS categorias;
+CREATE TABLE IF NOT EXISTS categorias(
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(150) UNIQUE NOT NULL, # Não permite ser vazio e é único
+    descricao TEXT,
+    ativo BOOLEAN DEFAULT FALSE
+
+INSERT INTO categoria(nome) VALUE ("Executiva");
+INSERT INTO categoria(nome, descricao) VALUE ('Média','Texto2');    
+);
