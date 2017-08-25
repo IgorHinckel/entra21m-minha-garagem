@@ -36,7 +36,26 @@ CREATE TABLE IF NOT EXISTS categorias(
     nome VARCHAR(150) UNIQUE NOT NULL, # Não permite ser vazio e é único
     descricao TEXT,
     ativo BOOLEAN DEFAULT FALSE
-
-INSERT INTO categoria(nome) VALUE ("Executiva");
-INSERT INTO categoria(nome, descricao) VALUE ('Média','Texto2');    
 );
+
+
+CREATE TABLE IF NOT EXISTS avioes(
+id INTEGER PRIMARY KEY AUTO_INCREMENT,
+
+id_categoria INTEGER NOT NULL,
+FOREIGN KEY(id_categoria) REFERENCES categorias(id),
+
+nome VARCHAR(100) NOT NULL UNIQUE
+);  
+
+INSERT INTO categorias (nome) VALUES 
+("Baixa"),
+("Média"),
+("Alta");
+
+INSERT INTO avioes (id_categoria, nome) VALUE
+(1,"Teco Teco"),
+(2,"Air Bus A320"),
+(2, "Air Bus 777"),
+(3, "Air Buss 747");
+

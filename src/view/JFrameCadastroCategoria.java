@@ -5,6 +5,11 @@
  */
 package view;
 
+import dao.CategoriaDAO;
+import database.Utilitarios;
+import javax.swing.JOptionPane;
+import model.Categoria;
+
 /**
  *
  * @author Alunos
@@ -18,6 +23,19 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
         initComponents();
     }
 
+    public JFrameCadastroCategoria(Categoria categoria) {
+        initComponents();
+        jLabelCodigo.setText(String.valueOf(categoria.getId()));
+        jTextFieldNome.setText(categoria.getNome());
+        jTextAreaDescricao.setText(categoria.getDescricao());
+
+        if (categoria.isAtivo()) {
+            jRadioButtonAtivo.setSelected(true);
+        } else {
+            jRadioButtonInativo.setSelected(true);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +47,7 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jLabelNome = new javax.swing.JLabel();
-        jLabelCodigo = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabelDescricao = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
         jLabelStatus = new javax.swing.JLabel();
@@ -38,15 +56,16 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaDescricao = new javax.swing.JTextArea();
         jButtonSalvar = new javax.swing.JButton();
+        jLabelCodigo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         jLabelNome.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelNome.setText("Nome");
 
-        jLabelCodigo.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabelCodigo.setText("ID");
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jLabel4.setText("ID");
 
         jLabelDescricao.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabelDescricao.setText("Descricao");
@@ -74,11 +93,16 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
         jTextAreaDescricao.setLineWrap(true);
         jTextAreaDescricao.setRows(5);
         jTextAreaDescricao.setWrapStyleWord(true);
-        jTextAreaDescricao.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextAreaDescricao.setBorder(new javax.swing.border.SoftBevelBorder(0));
         jScrollPane1.setViewportView(jTextAreaDescricao);
 
         jButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save.png"))); // NOI18N
         jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,7 +131,9 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jLabelCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabelStatus)
                 .addGap(138, 138, 138))
@@ -117,8 +143,9 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelCodigo)
-                    .addComponent(jLabelStatus))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabelStatus)
+                    .addComponent(jLabelCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelNome)
@@ -134,11 +161,43 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jRadioButtonInativoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonInativoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButtonInativoActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        Categoria cat = new Categoria();
+        cat.setNome(jTextFieldNome.getText());
+        cat.setDescricao(jTextAreaDescricao.getText());
+        cat.setAtivo(jRadioButtonAtivo.isSelected());
+
+        if (jLabelCodigo.getText().equals("")) {
+
+            int codigoCategoria = new CategoriaDAO().inserir(cat);
+
+            if (codigoCategoria == Utilitarios.NAO_FOI_POSSIVEL_INSERIR) {
+                JOptionPane.showMessageDialog(null, "Não foi possível inserir");
+            } else {
+                cat.setId(codigoCategoria);
+                jLabelCodigo.setText(String.valueOf(codigoCategoria));
+                JOptionPane.showMessageDialog(null, cat.getNome() + " Inserido com sucesso!");
+                dispose();
+            }
+        }else{
+            int id = Integer.parseInt(jLabelCodigo.getText());
+            cat.setId(id);
+            int codigoAlterado = new CategoriaDAO().alterar(cat);
+            
+            if(codigoAlterado == Utilitarios.NAO_FOI_POSSIVEL_ALTERAR){
+                
+            }else{
+                JOptionPane.showMessageDialog(null, cat.getNome() + " Alterado com sucesso!");
+            }
+        }
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,6 +237,7 @@ public class JFrameCadastroCategoria extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButtonSalvar;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelCodigo;
     private javax.swing.JLabel jLabelDescricao;
     private javax.swing.JLabel jLabelNome;

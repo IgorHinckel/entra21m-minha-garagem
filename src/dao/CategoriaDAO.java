@@ -18,8 +18,8 @@ public class CategoriaDAO {
 
     public int inserir(Categoria categoria) {
         int codigoInserido = Utilitarios.NAO_FOI_POSSIVEL_INSERIR;
-        String sql = "INSERT INTO categorias (nome, descricao)";
-        sql += "\n VALUE(?,?)";
+        String sql = "INSERT INTO categorias (nome, descricao, ativo)";
+        sql += "\n VALUE(?,?,?)";
 
         try {
             /*Classe utilizada para criar o sql substituindo as interrogações
@@ -31,6 +31,7 @@ public class CategoriaDAO {
             //Substitui as interrogações
             ps.setString(1, categoria.getNome());
             ps.setString(2, categoria.getDescricao());
+            ps.setBoolean(3,categoria.isAtivo());
             ps.execute();
 
             //classe utilizada para trabalhar com as informações que 
@@ -53,7 +54,7 @@ public class CategoriaDAO {
         String sql = "UPDATE categorias SET ";
         sql += "\n nome = ?,";
         sql += "\n descricao = ? ";
-        sql += "\n WHERE id";
+        sql += "\n WHERE id = ?";
 
         try {
             PreparedStatement ps = Conexao.conectar().prepareStatement(sql);
