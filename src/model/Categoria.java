@@ -25,6 +25,7 @@ public class Categoria {
         this.id = id;
     }
 
+    
     public String getNome() {
         return nome;
     }
@@ -48,6 +49,18 @@ public class Categoria {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
+    
+    
+     
+     
+    
     
     
     

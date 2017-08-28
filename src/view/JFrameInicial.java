@@ -2,6 +2,7 @@ package view;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Action;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,7 +15,8 @@ import javax.swing.JLabel;
  */
 public class JFrameInicial extends JFrame implements JFrameComportamentosInterface {
 
-    private JButton jButtonListaCarros, jButtonCadastroCarro, jButtonListaCategoria, jButtonInformacao;
+    private JButton jButtonListaCarros, jButtonCadastroCarro, jButtonListaCategoria;
+    private  JButton jButtonListaAvioes;
 
     public JFrameInicial() {
         criarTela();
@@ -26,7 +28,7 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
 
     @Override
     public void criarTela() {
-        setSize(300, 200);
+        setSize(600, 400);
         setLayout(null);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -49,7 +51,8 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
         jButtonListaCategoria.setIcon(icone);
         
         
-        JButton jButtonInformacao = new JButton();
+        
+         jButtonListaAvioes = new JButton("Lista de Aviões");
         
         
     }
@@ -59,6 +62,7 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
         jButtonListaCarros.setBounds(40, 10, 200, 35);
         jButtonCadastroCarro.setBounds(40, 55, 200, 35);
         jButtonListaCategoria.setBounds(40, 100, 200, 35);
+        jButtonListaAvioes.setBounds(40,145,200,35);
     }
 
     @Override
@@ -66,6 +70,7 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
         add(jButtonListaCarros);
         add(jButtonCadastroCarro);
         add(jButtonListaCategoria);
+        add(jButtonListaAvioes);
     }
 
     @Override
@@ -95,6 +100,15 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
             @Override
             public void actionPerformed(ActionEvent e) {
                 new JFrameListaCategorias().setVisible(true);
+            }
+        });
+        
+        jButtonListaAvioes.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrameListaAvioes lista = new JFrameListaAvioes();
+                lista.setVisible(true);
             }
         });
     }
