@@ -8,6 +8,7 @@ package view;
 import dao.AviaoDAO;
 import dao.CategoriaDAO;
 import database.Utilitarios;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -25,20 +26,20 @@ public class JFrameCadastroDeAviao extends javax.swing.JFrame {
      */
     public JFrameCadastroDeAviao() {
         initComponents();
+        limparComponentes();
     }
 
     public JFrameCadastroDeAviao(Aviao aviao) {
         this();
         jTextFieldCodigo.setText(String.valueOf(aviao.getCodigo()));
-        jTextFieldNome.setText(aviao.getNome());
-        
+        popularComponentes(aviao);
     }
-    
-    public DefaultComboBoxModel<Categoria> popularJComboBoxCategoria(){
+
+    public DefaultComboBoxModel<Categoria> popularJComboBoxCategoria() {
         DefaultComboBoxModel<Categoria> model = new DefaultComboBoxModel<>();
         ArrayList<Categoria> categorias = new CategoriaDAO().retornarListaCategoria();
-        
-        for(Categoria categoria : categorias){
+
+        for (Categoria categoria : categorias) {
             model.addElement(categoria);
         }
         return model;
@@ -68,6 +69,17 @@ public class JFrameCadastroDeAviao extends javax.swing.JFrame {
         jLabelNome.setText("Nome");
 
         jLabel3.setText("Categoria");
+
+        jTextFieldCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldCodigoFocusLost(evt);
+            }
+        });
+        jTextFieldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldCodigoKeyReleased(evt);
+            }
+        });
 
         jButtonSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save.png"))); // NOI18N
         jButtonSalvar.setText("Salvar");
@@ -129,21 +141,90 @@ public class JFrameCadastroDeAviao extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        
-        Aviao aviao = new Aviao();
-        aviao.setNome(jTextFieldNome.getText());
-        aviao.setCategoria((Categoria)jComboBoxCategoria.getSelectedItem());
-        
-        int codigoInserido = new AviaoDAO().inserir(aviao);
-        
-        if(codigoInserido == Utilitarios.NAO_FOI_POSSIVEL_INSERIR){
-            JOptionPane.showMessageDialog(null, "Não foi possível inserir o avião", "Aviso", JOptionPane.ERROR_MESSAGE);
-        }else{
-            jTextFieldCodigo.setText(String.valueOf(codigoInserido));
-            aviao.setCodigo(codigoInserido);
-            JOptionPane.showMessageDialog(null, "Avião inserido com sucesso!");
+        if (!jTextFieldCodigo.getText().equals("")) {
+            int codigo = Integer.parseInt(jTextFieldCodigo.getText());
+
+            Aviao aviao = new Aviao();
+            aviao.setCodigo(codigo);
+            aviao.setNome(jTextFieldNome.getText());
+            aviao.setCategoria((Categoria) jComboBoxCategoria.getSelectedItem());
+
+            int codigoAlterado = new AviaoDAO().alterar(aviao);
+
+            if (codigoAlterado == Utilitarios.NAO_FOI_POSSIVEL_ALTERAR) {
+                JOptionPane.showMessageDialog(null, "Não foi possível alterar o avião", "Aviso", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Avião alterado com seucesso!");
+            }
+
+        } else {
+
+            Aviao aviao = new Aviao();
+            aviao.setNome(jTextFieldNome.getText());
+            aviao.setCategoria((Categoria) jComboBoxCategoria.getSelectedItem());
+
+            int codigoInserido = new AviaoDAO().inserir(aviao);
+
+            if (codigoInserido == Utilitarios.NAO_FOI_POSSIVEL_INSERIR) {
+                JOptionPane.showMessageDialog(null, "Não foi possível inserir o avião", "Aviso", JOptionPane.ERROR_MESSAGE);
+            } else {
+                jTextFieldCodigo.setText(String.valueOf(codigoInserido));
+                aviao.setCodigo(codigoInserido);
+                JOptionPane.showMessageDialog(null, "Avião inserido com sucesso!");
+
+            }
         }
+
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+    private void jTextFieldCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCodigoKeyReleased
+        if ((evt.getKeyCode() == KeyEvent.VK_ENTER) || (evt.getKeyCode() ==KeyEvent.VK_TAB)) {
+            verificarCodigoExistente();           
+        }
+    }//GEN-LAST:event_jTextFieldCodigoKeyReleased
+
+    private void jTextFieldCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldCodigoFocusLost
+        // TODO add your handling code here:
+        verificarCodigoExistente();
+    }//GEN-LAST:event_jTextFieldCodigoFocusLost
+    
+    public void verificarCodigoExistente(){
+        try {
+                int codigo = Integer.parseInt(jTextFieldCodigo.getText());
+
+                Aviao aviao = new AviaoDAO().buscarAviaoPorId(codigo);
+
+                if (aviao == null) {
+                    JOptionPane.showMessageDialog(null, "Código Inválido");
+                    limparComponentes();
+                    jTextFieldCodigo.requestFocus();
+                } else {
+                    popularComponentes(aviao);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Valor informado não é válido!");
+            }
+    }
+            
+    public void limparComponentes() {
+        jComboBoxCategoria.setSelectedIndex(-1);
+
+    }
+
+    public void popularComponentes(Aviao aviao) {
+        jTextFieldNome.setText(aviao.getNome());
+
+        for (int i = 0; i < jComboBoxCategoria.getModel().getSize(); i++) {
+            Categoria categoria = jComboBoxCategoria.getModel().getElementAt(i);
+
+            if (categoria.getId() == aviao.getCategoria().getId()) {
+                jComboBoxCategoria.setSelectedIndex(i);
+                return;
+            }
+        }
+
+    }
 
     /**
      * @param args the command line arguments

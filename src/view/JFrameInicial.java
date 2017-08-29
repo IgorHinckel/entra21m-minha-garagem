@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 public class JFrameInicial extends JFrame implements JFrameComportamentosInterface {
 
     private JButton jButtonListaCarros, jButtonCadastroCarro, jButtonListaCategoria;
-    private  JButton jButtonListaAvioes;
+    private JButton jButtonListaAvioes;
 
     public JFrameInicial() {
         criarTela();
@@ -39,22 +39,20 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
     @Override
     public void criarComponentes() {
         Icon icone = new ImageIcon(getClass().getResource("/auto.png"));
-        jButtonListaCarros = new JButton(  "Lista de Carros");
+        jButtonListaCarros = new JButton("Lista de Carros");
         jButtonListaCarros.setIcon(icone);
-        
+
         icone = new ImageIcon(getClass().getResource("/racing.png"));
         jButtonCadastroCarro = new JButton("Cadastro de Carros");
         jButtonCadastroCarro.setIcon(icone);
-        
+
         icone = new ImageIcon(getClass().getResource("/diagram.png"));
         jButtonListaCategoria = new JButton("Lista de Categorias");
         jButtonListaCategoria.setIcon(icone);
-        
-        
-        
-         jButtonListaAvioes = new JButton("Lista de Aviões");
-        
-        
+
+        icone = new ImageIcon(getClass().getResource("/icon_plane.png"));
+        jButtonListaAvioes = new JButton("Lista de Aviões");
+        jButtonListaAvioes.setIcon(icone);
     }
 
     @Override
@@ -62,7 +60,7 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
         jButtonListaCarros.setBounds(40, 10, 200, 35);
         jButtonCadastroCarro.setBounds(40, 55, 200, 35);
         jButtonListaCategoria.setBounds(40, 100, 200, 35);
-        jButtonListaAvioes.setBounds(40,145,200,35);
+        jButtonListaAvioes.setBounds(40, 145, 200, 35);
     }
 
     @Override
@@ -83,8 +81,6 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
 
             }
         });
-        
-       
 
         jButtonCadastroCarro.addActionListener(new ActionListener() {
 
@@ -102,7 +98,7 @@ public class JFrameInicial extends JFrame implements JFrameComportamentosInterfa
                 new JFrameListaCategorias().setVisible(true);
             }
         });
-        
+
         jButtonListaAvioes.addActionListener(new ActionListener() {
 
             @Override

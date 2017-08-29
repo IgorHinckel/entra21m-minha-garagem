@@ -79,6 +79,7 @@ public class AviaoDAO {
             PreparedStatement ps = Conexao.conectar().prepareStatement(sql);
             ps.setInt(1, aviao.getCategoria().getId());
             ps.setString(2, aviao.getNome());
+            ps.setInt(3, aviao.getCodigo());
             codigoAlterado = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,12 +111,13 @@ public class AviaoDAO {
     
     public Aviao buscarAviaoPorId(int id){
         Aviao aviao = null;
-        String sql = "SLECT id, id_categoria, nome FROM avioes";
+        String sql = "SELECT id, id_categoria, nome FROM avioes ";
         sql += "WHERE id =?";
         
         try{
             PreparedStatement ps = Conexao.conectar().prepareStatement(sql);
             ps.setInt(1, id);
+            ps.execute();
             ResultSet rs = ps.getResultSet();
             
             if(rs.next()){
